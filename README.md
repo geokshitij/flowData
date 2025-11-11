@@ -2,6 +2,8 @@
 
 A Flask-based web application for downloading hydrologic data and catchment boundaries for USGS stream gages. This tool allows users to easily fetch streamflow data and catchment area information from USGS databases.
 
+![UI Screenshot](ss.png)
+
 ## Features
 
 - **Station List Download**: Download a complete list of active USGS stream gages for any US state
