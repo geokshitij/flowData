@@ -1,0 +1,6 @@
+Flask==3.0.0
+pandas==2.1.3
+geopandas==0.14.1
+dataretrieval==1.0.7
+pynhd==0.16.2
+Werkzeug==3.0.1
