@@ -1,0 +1,1060 @@
+Directory structure:
+└── kratzert-caravan/
+    ├── README.md
+    ├── CODEOWNERS
+    ├── LICENSE
+    ├── .style.yapf
+    ├── code/
+    │   ├── caravan_utils.py
+    │   └── pet.py
+    ├── environments/
+    │   ├── environment.yml
+    │   └── requirements.txt
+    ├── references/
+    │   └── references.bib
+    └── .github/
+        └── ISSUE_TEMPLATE/
+            └── data-contribution.yml
+
+================================================
+FILE: README.md
+================================================
+![](caravan-long-logo.png)
+
+# Caravan - A global community dataset for large-sample hydrology
+
+This repository is part of the Caravan project/dataset.
+
+## What is Caravan
+
+_Caravan_ is an open community dataset of meteorological forcing data, catchment attributes, and discharge data for catchments around the world. Additionally, Caravan provides code to derive meteorological forcing data and catchment attributes in the cloud, making it easy for anyone to extend Caravan to new catchments. The vision of Caravan is to provide the foundation for a truly global open source community resource that will grow over time. 
+
+The Caravan dataset that was released together with the [paper](https://www.nature.com/articles/s41597-023-01975-w). Since Version 1.6, the dataset is published in two different Zenodo repositories, depending on the filetype of the timeseries data. Click [here](https://doi.org/10.5281/zenodo.6522634) for the netCDF version and [here](https://zenodo.org/records/15530021) for the CSV version.
+
+> [!TIP]
+> Join the [Caravan Google Groups](https://groups.google.com/g/caravan-dataset) to get email notifications for version updates and other important announcement around the Caravan community dataset.
+
+## Caravan MultiMet
+
+We recently released the [Caravan MultiMet extension](https://arxiv.org/abs/2411.09459), which adds several weather products for all Caravan basins (including all basins from all extensions). The MultiMet extension contains several nowcast products (CPC, IMERG v07 Early, CHIRPS), as well as three different  forecast products (ECMWF IFS HRES, GraphCast, CHIRPS-GEFS) with multiple bands and 10 days (IFS, GraphCast) or 16 day (CHIRPS-GEFS) lead times. The data is saved in zarr files that can be downloaded from Zenodo and is also being hosted on public GCP bucket. For details check the paper [Caravan MultiMet extension](https://arxiv.org/abs/2411.09459) and the [notebook](examples/Caravan_MultiMet_Extending_Caravan_with_Multiple_Weather_Nowcasts_and_Forecasts.ipynb) that can be executed on Colab and examplifies how to work with the data from the GCP bucket.
+
+**Note**: In contrast to the original Caravan data, all data for all basins in the MultiMet extension is in UTC-0, which is the original timezone for all of these global weather products. Since not all are available in sub-daily resolution, and hence data can't be shifted easily to local time, we decided to keep all data for all basins in UTC-0. For that reason, the MultiMet extension also contains ERA5-Land reanalysis data and here, also in UTC-0. 
+
+## About this repository
+
+The purpose of this repository is twofold:
+
+1. It contains the code  
+    - that was used to derive all of the data included in Caravan, and 
+    - that is required to extend Caravan to any new location for free in the cloud.
+2. It acts as a community hub (see [discussion forum](https://github.com/kratzert/caravan/discussions)) to
+    - share news and updates on Caravan,
+    - for anyone to share extensions of Caravan to new regions.
+
+See ["Extend Caravan"](https://github.com/kratzert/Caravan/wiki/Extending-Caravan-with-new-basins) for a detailed description about how to extend Caravan to any new region/basin with the code provided in this repository. See ["How to contribute"](#how-to-contribute) for more details about how to contribute to the Caravan project.
+
+## How to contribute
+
+Our main vision with Caravan is that this dataset will grow over time. Anyone, with as little as streamflow records and catchment boundaries of one (or more) basins, can contribute to extending the Caravan dataset to new regions. The code provided in this dataset can be used to:
+
+1. Compute static catchment attributes on Google Earth Engine.
+2. Compute time series of spatially-averaged meteorological forcings on Google Earth Engine.
+3. Postprocess the Earth Engine outputs locally and to combine it with streamflow, as well as to compute some additional climate indices.
+
+The generated output is already in a folder structure that can be easily integrated into the existing dataset. Additionally, every data that is contributed contains a separate license/info file, attributing your contribution to this project and explaining the source of license specification of this addition. Follow [this guide](https://github.com/kratzert/Caravan/wiki/Sharing-New-Data) for more information on how to share your data with the community.
+
+## Reference
+
+If you use the Caravan dataset in your research/work, the recommended citation is:
+
+```bib
+@article{kratzert2023caravan,
+  title={Caravan-A global community dataset for large-sample hydrology},
+  author={Kratzert, Frederik and Nearing, Grey and Addor, Nans and Erickson, Tyler and Gauch, Martin and Gilon, Oren and Gudmundsson, Lukas and Hassidim, Avinatan and Klotz, Daniel and Nevo, Sella and others},
+  journal={Scientific Data},
+  volume={10},
+  number={1},
+  pages={61},
+  year={2023},
+  publisher={Nature Publishing Group UK London}
+}
+```
+
+Additionally, we would greatly appreciate it if you also cite the corresponding manuscripts of the source datasets. A .bib file containing all relevant references is available in the [references folder](https://github.com/kratzert/Caravan/tree/main/references) for easy import into citation managers. For further details on the references and their licenses, see the information in the licenses folder of the [Caravan dataset](https://zenodo.org/records/14673536)
+
+## Contact
+
+If you have any questions/feedback regarding the Caravan dataset/project, please contact Frederik Kratzert kratzert(at)google.com
+
+
+
+================================================
+FILE: CODEOWNERS
+================================================
+* @kratzert
+
+
+
+================================================
+FILE: LICENSE
+================================================
+BSD 3-Clause License
+
+Copyright (c) 2022, Frederik Kratzert
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+1. Redistributions of source code must retain the above copyright notice, this
+   list of conditions and the following disclaimer.
+
+2. Redistributions in binary form must reproduce the above copyright notice,
+   this list of conditions and the following disclaimer in the documentation
+   and/or other materials provided with the distribution.
+
+3. Neither the name of the copyright holder nor the names of its
+   contributors may be used to endorse or promote products derived from
+   this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+
+
+================================================
+FILE: .style.yapf
+================================================
+[style]
+column_limit = 120
+based_on_style = google
+
+
+================================================
+FILE: code/caravan_utils.py
+================================================
+# This file is part of Caravan project/dataset. See https://github.com/kratzert/Caravan for details.
+#
+# You should have received a copy of the BSD-3-Clause license along with this file. If not,
+# see https://opensource.org/licenses/BSD-3-Clause.
+
+from datetime import datetime
+from functools import partial
+from multiprocessing import Pool
+from pathlib import Path
+from pytz import timezone, utc
+from typing import Dict, List
+
+import numpy as np
+import pandas as pd
+import xarray
+from numba import njit
+from timezonefinder import TimezoneFinder
+from tqdm.notebook import tqdm
+
+# Keep these dates. They are the original time period used to compute climate indices. Changing these dates would
+# remove the compareability between extensions, if longer ERA5-Land periods are downloaded.
+_CARAVAN_START_DATE = pd.to_datetime('1981-01-01', format="%Y-%m-%d")
+_CARAVAN_END_DATE = pd.to_datetime('2020-12-31', format="%Y-%m-%d")
+
+
+def process_earth_engine_outputs(csv_files: List[Path],
+                                 basin_id_field: str,
+                                 era5l_bands: List[str],
+                                 output_dir: Path,
+                                 num_workers: int,
+                                 basin_prefix: str | None = None) -> List[pd.DataFrame]:
+    """Processes Earth Engine output files in parallel into per-basin netCDF files.
+    
+    Parameters
+    ----------
+    csv_files : List[Path]
+        List of Path objects pointing to the csv files that were produced by Earth Engine as a result of the first 
+        notebook.
+    basin_id_field : str
+        Name of the attribute field that corresponds to the unique basin id. Same name as in the shape file that was
+        used to derive the spatially averaged forcing data.
+    era5l_bands : List[str]
+        Name of ERA5-Land bands that should be processed.
+    output_dir : Path
+        Directory in which the processed per-basin netCDF files are stored.
+    num_workers : int
+        Number of parallel workers. Usually this should be a value lower than the maximum number of cores available on 
+        your system.
+    basin_prefix : str | None
+        String prefix that is prepended to the gauge ids in the basin_id_field in the following format {prefix}_{id}.
+    """
+
+    # Split Earth Engine outputs into per-basin netCDF files.
+    with Pool(num_workers) as p:
+        _ = list(
+            tqdm(p.imap(
+                partial(_process_single_file,
+                        basin_id_field=basin_id_field,
+                        era5l_bands=era5l_bands,
+                        output_dir=output_dir,
+                        basin_prefix=basin_prefix), csv_files),
+                 total=len(csv_files),
+                 desc="Splitting Earth Engine output into per-basin files."))
+
+    # Stack the per-basin netCDF file to one (combined) file.
+    basin_dirs = list((output_dir / "temp").glob('*'))
+
+    # Split Earth Engine outputs into per-basin netCDF files.
+    with Pool(num_workers) as p:
+        _ = list(
+            tqdm(p.imap(stack_per_basin_netcdfs, basin_dirs),
+                 total=len(basin_dirs),
+                 desc="Combining files per-basin into one file."))
+
+
+def _process_single_file(csv_file: Path, basin_id_field: str, era5l_bands: List[str], output_dir: Path,
+                         basin_prefix: str | None):
+    # Load all data of one csv file into memory.
+    df = load_and_clean_csv_file(csv_file=csv_file,
+                                 basin_id_field=basin_id_field,
+                                 era5l_bands=era5l_bands,
+                                 basin_prefix=basin_prefix)
+
+    # Get unique list of basin ids. The field is renamed in the function above to gauge_id.
+    basins = list(set(df["gauge_id"].to_list()))
+
+    # Loop over basins and create per-basin data and store to temp files.
+    for basin in basins:
+        try:
+            split_by_basin_and_save(df=df, basin=basin, output_dir=output_dir, filename=csv_file.stem)
+        except:
+            print(csv_file, basin)
+
+
+def load_and_clean_csv_file(csv_file: Path, basin_id_field: str, era5l_bands: List[str],
+                            basin_prefix: str | None) -> pd.DataFrame:
+    """Load raw Earth Engine outputs and convert into time indexed DataFrame.
+    
+    Parameters
+    ----------
+    csv_file : Path
+        Path object pointing to a csv file that were produced by Earth Engine as a result of the first notebook.
+    basin_id_field : str
+        Name of the attribute field that corresponds to the unique basin id. Same name as in the shape file that was
+        used to derive the spatially averaged forcing data.
+    era5l_bands : List[str]
+        Name of ERA5-Land bands that should be processed.
+    basin_prefix : str
+        String prefix that is prepended to the gauge ids in the basin_id_field in the following format {prefix}_{id}.
+
+    Returns
+    -------
+    pd.DataFrame
+        Time-indexed DataFrame that contains the hourly ERA5-Land data of all basins.
+    """
+    # load raw Earth Engine output as DataFrame
+    df = pd.read_csv(csv_file, dtype={basin_id_field: str})
+    # Unify the naming of the basin id column
+    df = df.rename(columns={basin_id_field: "gauge_id"})
+
+    if basin_prefix is not None and basin_prefix:
+        df["gauge_id"] = df["gauge_id"].map(lambda x: f"{basin_prefix}_{x}")
+
+    # Create datetime column
+    df["date_str"] = df["system:index"].map(lambda x: x[:11].replace('T', '_'))
+    df["date"] = pd.to_datetime(df["date_str"], format='%Y%m%d_%H')
+
+    # remove unnecessary columns
+    drop_cols = [c for c in df.columns if c not in era5l_bands + ['gauge_id', 'date']]
+    df = df.drop(drop_cols, axis=1)
+
+    # set datetime column as index
+    df = df.set_index('date')
+
+    return df
+
+
+def split_by_basin_and_save(df: pd.DataFrame, basin: str, output_dir: Path, filename: str):
+    """Extracts basin data from DataFrame and stores data as netCDF file.
+    
+    Parameters
+    ----------
+    df : pd.DataFrame
+        DataFrame containing the combined ERA5-Land data of all basins.
+    basin : str
+        Unique basin id.
+    output_dir : Path
+        Directory in which the processed per-basin netCDF files are stored.
+    """
+    df_basin = df.loc[df['gauge_id'] == basin]
+    df_basin = df_basin.drop(["gauge_id"], axis=1)
+
+    # store as netCDF and float32 to save disk space
+    xr_basin = xarray.Dataset.from_dataframe(df_basin).astype(np.float32)
+    output_path = output_dir / "temp" / basin / f"{filename}.nc"
+    if not output_path.parent.is_dir():
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+    xr_basin.to_netcdf(output_path)
+
+
+def stack_per_basin_netcdfs(basin_dir: Path):
+    """Combines multiple netCDF files of a single basin into one object.
+    
+    Parameters
+    ----------
+    basin_dir : Path
+        Directory that contains individual netCDF files for one basin. All netCDF files in this directory are loaded
+        and concatenated in time and then saved in the same directory in a file called `combined.nc`.
+    """
+    xrs = []
+    batch_files = list(basin_dir.glob('*.nc'))
+
+    # Load per-basin batch files.
+    for filepath in batch_files:
+        xrs.append(xarray.open_dataset(filepath))
+
+    # Stack all data and sort by time index.
+    if xrs:
+        xr = xarray.concat(xrs, dim="date")
+        xr = xr.sortby('date', ascending=True)
+        xr.to_netcdf(basin_dir / 'combined.nc')
+    else:
+        raise ValueError(f"Could not find any .nc files in {basin_dir}")
+
+
+def aggregate_df_to_daily(df: pd.DataFrame,
+                          gauge_lat: float,
+                          gauge_lon: float,
+                          mean_vars: List[str] = None,
+                          min_vars: List[str] = None,
+                          max_vars: List[str] = None,
+                          sum_vars: List[str] = None):
+    """Aggregates hourly ERA5-Land data in UTC to daily data in local time.
+
+    Parameters
+    ----------
+    df : pd.DataFrame
+        Timeindexed DataFrame in hourly resolution, containing the raw ERA5-Land data of one basin.
+    gauge_lat : float
+        Latitude (WGS 84) of the streamflow gauge. Used to determine local timezone.
+    gauge_lon : float
+        Longitude (WGS 84) of the streamflow gauge. Used to determine the local timezone.
+    mean_vars : List[str], optional
+        List of DataFrame columns that are aggregated to daily resolution by computing the daily mean. For each name in
+        this list, a new column is added with the column name followed by the suffix '_mean'.
+    min_vars : List[str], optional
+        List of DataFrame columns that are aggregated to daily resolution by computing the daily min. For each name in
+        this list, a new column is added with the column name followed by the suffix '_min'.
+    max_vars : List[str], optional
+        List of DataFrame columns that are aggregated to daily resolution by computing the daily max. For each name in
+        this list, a new column is added with the column name followed by the suffix '_max'.
+    sum_vars : List[str], optional
+        List of DataFrame columns that are aggregated to daily resolution by computing the daily sum. For each name in
+        this list, a new column is added with the column name followed by the suffix '_sum'.
+    
+    Returns
+    -------
+    pd.DataFrame
+        Timeindexed DataFrame in daily resolution (local time).
+    """
+
+    if all([not x for x in [mean_vars, min_vars, max_vars, sum_vars]]):
+        raise ValueError("You need to pass at least one of mean_vars, min_vars, max_vars, and sum_vars")
+
+    df = _utc_to_local_standard_time(df.copy(), lat=gauge_lat, lon=gauge_lon)
+
+    # start and end date of forcing data where we have all 24 data points of one day
+    start_date = df.loc[df.index.hour == 1].first_valid_index()
+    end_date = df.loc[df.index.hour == 0].last_valid_index()
+    df = df[start_date:end_date]
+
+    dfs = []
+    if mean_vars:
+        df_mean = df[mean_vars].resample('1D', offset=pd.Timedelta(hours=1)).mean()
+        df_mean = df_mean.rename(columns={col: f"{col}_mean" for col in df_mean.columns})
+        dfs.append(df_mean)
+
+    if min_vars:
+        df_min = df[min_vars].resample('1D', offset=pd.Timedelta(hours=1)).min()
+        df_min = df_min.rename(columns={col: f"{col}_min" for col in df_min.columns})
+        dfs.append(df_min)
+
+    if max_vars:
+        df_max = df[max_vars].resample('1D', offset=pd.Timedelta(hours=1)).max()
+        df_max = df_max.rename(columns={col: f"{col}_max" for col in df_max.columns})
+        dfs.append(df_max)
+
+    if sum_vars:
+        df_sum = df[sum_vars].resample('1D', offset=pd.Timedelta(hours=1)).sum()
+        df_sum = df_sum.rename(columns={col: f"{col}_sum" for col in df_sum.columns})
+        dfs.append(df_sum)
+
+    aggregates = pd.concat(dfs, axis=1)
+    aggregates.index = aggregates.index.strftime('%Y-%m-%d')
+    aggregates.index = pd.to_datetime(aggregates.index, format="%Y-%m-%d")
+    return aggregates
+
+
+def calculate_climate_indices(df: pd.DataFrame,
+                              period_start_date: pd.Timestamp = _CARAVAN_START_DATE,
+                              period_end_date: pd.Timestamp = _CARAVAN_END_DATE) -> Dict[str, float]:
+    """Calculates various climate indices from ERA5-Land bands.
+    
+    See Caravan publication for details.
+
+    Parameters
+    ----------
+    df : pd.DataFrame
+        Timeindexed DataFrame in daily resolution. Must contain the columns 'total_precipitation_sum', 
+        'potential_evaporation_sum' and 'temperature_2m_mean'.
+    period_start_date : pd.Timestamp
+        Can be used to define a different start date of the timeseries that should be considered for 
+        computing the climate indices. Note, if you plan to release a Caravan extension, please use
+        the default start date, i.e. don't pass a period_start_date to this function.
+    period_end_date : pd.Timestamp
+        Can be used to define a different end date of the timeseries that should be considered for 
+        computing the climate indices. Note, if you plan to release a Caravan extension, please use
+        the default end date, i.e. don't pass a period_end_date to this function.
+
+    Returns
+    -------
+    Dict[str, float]
+        Dictionary, where each key-value-pair is the name of one climate index and the corresponding value.
+    """
+    required_columns = [
+        'total_precipitation_sum',
+        'potential_evaporation_sum_ERA5_LAND',
+        'potential_evaporation_sum_FAO_PENMAN_MONTEITH',
+        'temperature_2m_mean',
+    ]
+    if any([x not in df.columns for x in required_columns]):
+        raise RuntimeError(f"DataFrame is missing one of {required_columns} as column")
+
+    # Before computing any index, we make sure to slice to the original Caravan periods
+    df = df.loc[slice(period_start_date, period_end_date)]
+
+    # Mean daily precip
+    p_mean = df["total_precipitation_sum"].mean()
+    # Mean daily PET
+    pet_mean_era5 = df["potential_evaporation_sum_ERA5_LAND"].mean()
+    pet_mean_fao = df["potential_evaporation_sum_FAO_PENMAN_MONTEITH"].mean()
+
+    # Aridity index
+    aridity_era5 = pet_mean_era5 / p_mean
+    aridity_fao = pet_mean_fao / p_mean
+
+    # Compute moistuer and seasonality index once with ERA5 PET and once with FAO PM PET
+    annual_moisture_index_era5, seasonality_era5 = _get_moisture_and_seasonality_index(
+        precipitation=df["total_precipitation_sum"], pet=df["potential_evaporation_sum_ERA5_LAND"])
+    annual_moisture_index_fao, seasonality_fao = _get_moisture_and_seasonality_index(
+        precipitation=df["total_precipitation_sum"], pet=df["potential_evaporation_sum_FAO_PENMAN_MONTEITH"])
+
+    # Fraction of mean monthly precipipitation falling as snow (see Knoben)
+    mean_monthly_precip = df["total_precipitation_sum"].groupby(df.index.month).mean()
+    mean_monthly_temp = df["temperature_2m_mean"].groupby(df.index.month).mean()
+    frac_snow = mean_monthly_precip.loc[mean_monthly_temp < 0].sum() / mean_monthly_precip.sum()
+
+    high_prec_freq = len(df.loc[df["total_precipitation_sum"] >= 5 * p_mean]) / len(df)
+    low_prec_freq = len(df.loc[df["total_precipitation_sum"] < 1]) / len(df)
+
+    precip = df["total_precipitation_sum"].values
+    idx = np.where(precip < 1)[0]
+    groups = _split_list(idx)
+    if groups:
+        low_precip_dur = np.mean(np.array([len(p) for p in groups]))
+    else:
+        low_precip_dur = 0.0
+
+    idx = np.where(precip >= 5 * p_mean)[0]
+    groups = _split_list(idx)
+    if groups:
+        high_prec_dur = np.mean(np.array([len(p) for p in groups]))
+    else:
+        high_prec_dur = 0.0
+
+    climate_indices = {
+        'p_mean': p_mean,
+        'pet_mean_ERA5_LAND': pet_mean_era5,
+        'pet_mean_FAO_PM': pet_mean_fao,
+        'aridity_ERA5_LAND': aridity_era5,
+        'aridity_FAO_PM': aridity_fao,
+        'frac_snow': frac_snow,
+        'moisture_index_ERA5_LAND': annual_moisture_index_era5,
+        'seasonality_ERA5_LAND': seasonality_era5,
+        'moisture_index_FAO_PM': annual_moisture_index_fao,
+        'seasonality_FAO_PM': seasonality_fao,
+        'high_prec_freq': high_prec_freq,
+        'high_prec_dur': high_prec_dur,
+        'low_prec_freq': low_prec_freq,
+        'low_prec_dur': low_precip_dur
+    }
+
+    return climate_indices
+
+
+def _get_moisture_and_seasonality_index(precipitation, pet) -> tuple[float, float]:
+
+    mean_monthly_precip = precipitation.groupby(precipitation.index.month).mean()
+    mean_monthly_pet = pet.groupby(pet.index.month).mean()
+
+    # Average annual moisture index (see Knoben)
+    p_gt_et = 1 - mean_monthly_pet.loc[mean_monthly_precip > mean_monthly_pet] / mean_monthly_precip.loc[
+        mean_monthly_precip > mean_monthly_pet]
+    srs = pd.Series(np.zeros((12), dtype=np.float32), index=mean_monthly_pet.index, name='dummy')
+    p_eq_et = srs.loc[mean_monthly_precip == mean_monthly_pet]
+    p_lt_et = mean_monthly_precip.loc[mean_monthly_precip < mean_monthly_pet] / mean_monthly_pet.loc[
+        mean_monthly_precip < mean_monthly_pet] - 1
+    monthly_moisture_index = pd.concat([p_gt_et, p_eq_et, p_lt_et])
+
+    annual_moisture_index = monthly_moisture_index.mean()
+
+    # Seasonality (see Knoben)
+    seasonality = monthly_moisture_index.max() - monthly_moisture_index.min()
+
+    return annual_moisture_index, seasonality
+
+
+def disaggregate_features(df: pd.DataFrame) -> pd.DataFrame:
+    """Disaggregate daily accumulated features into hourly 'instantaneous' values.
+    
+    The following features in ERA5-Land are accumulates over the day (UTC): 'total_precipitation', 
+    'surface_net_solar_radiation', 'surface_net_thermal_radiation', and 'potential_evaporation'. This function 
+    disaggregates these features into hourly 'instantaneous' values instead.
+    
+    Parameters
+    ----------
+    df : pd.DataFrame
+        Timeindexed DataFrame in hourly resolution (UTC), containing the raw ERA5-Land data of one basin.
+
+    Returns
+    -------
+    pd.DataFrame
+        DataFrame with the same columns but with all columns being instantaneous values.
+    """
+    # List of columns that are accumulated in ERA5Land
+    columns = [
+        "total_precipitation", "surface_net_solar_radiation", "surface_net_thermal_radiation", "potential_evaporation"
+    ]
+
+    # sanity check which features exist in df
+    columns = [c for c in columns if c in df.columns]
+
+    # Calculate the difference between two time steps
+    temp = df[columns].diff(1)
+
+    # replace every 00:00 to 01:00 value with the original data
+    temp.loc[temp.index.hour == 1] = df[columns].loc[df.index.hour == 1].values
+
+    # the first time step in diff time series is NaN, replace with orignal data
+    temp.iloc[0] = df[columns].iloc[0]
+
+    # overwrite data
+    df[columns] = temp
+
+    return df
+
+
+def era5l_unit_conversion(df: pd.DataFrame) -> pd.DataFrame:
+    """Convert ERA5L units to commonly used units in hydrology
+    
+    Parameters
+    ----------
+    df : pd.DataFrame
+        Timeindexed DataFrame in daily resolution.
+
+    Returns
+    -------
+    pd.DataFrame
+        DataFrame with unit-converted data. Check `get_metadata_info()` for details about the output units.
+    """
+
+    for col in df.columns:
+        if col == "dewpoint_temperature_2m":
+            # Kelvin -> Celsius
+            df[col] = df[col] - 273.15
+
+        elif col == "temperature_2m":
+            # Kelvin -> Celsius
+            df[col] = df[col] - 273.15
+
+        elif col == "snow_depth_water_equivalent":
+            # m -> mm
+            df[col] = df[col] * 1000
+
+        elif col == "surface_net_solar_radiation":
+            # J/m2 -> W/m2
+            df[col] = df[col] / 3600
+
+        elif col == "surface_net_thermal_radiation":
+            # J/m2 -> W/m2
+            df[col] = df[col] / 3600
+
+        elif col == "surface_pressure":
+            # Pa -> kPa
+            df[col] = df[col] / 1000
+
+        elif col == "total_precipitation":
+            # m -> mm
+            df[col] = df[col] * 1000
+
+        elif col == "potential_evaporation":
+            # m -> mm
+            df[col] = df[col] * 1000
+
+    return df
+
+
+def get_metadata_info(xr: xarray.Dataset) -> Dict[str, str]:
+    """Compile unit metadata depending on the included ERA5-Land features.
+    
+    Parameters
+    ----------
+    xr : xarray.Dataset
+        Dataset with (aggregates of) ERA5-Land features.
+
+    Returns
+    -------
+    Dict[str, str]
+        Dictionary containing one key-value pair for each ERA5-Land feature that is available in `xr`. The key 
+        corresponds to the band-name of ERA5-Land (not the aggregate with a suffix) and the value is the feature name
+        and the unit (as converted by `era5l_unit_conversion`, not the original ERA5-Land units).
+    """
+    # list of available features
+    features = list(xr.variables)
+
+    metadata = {}
+
+    for feature in features:
+
+        if feature.startswith("temperature_2m"):
+            metadata["temperature_2m"] = "2m air temperature [°C]"
+
+        elif feature.startswith("snow_depth_water_equivalent"):
+            metadata["snow_depth_water_equivalent"] = "ERA5-Land Snow-Water-Equivalent [mm]"
+
+        elif feature.startswith("surface_net_solar_radiation"):
+            metadata["surface_net_solar_radiation"] = "Surface net solar radiation [W/m2]"
+
+        elif feature.startswith("surface_net_thermal_radiation"):
+            metadata["surface_net_thermal_radiation"] = "Surface net thermal radiation [W/m2]"
+
+        elif feature.startswith("surface_pressure"):
+            metadata["surface_pressure"] = "Surface pressure [kPa]"
+
+        elif feature.startswith("total_precipitation"):
+            metadata["total_precipitation"] = "Total precipitation [mm]"
+
+        elif feature.startswith("potential_evaporation_sum_ERA5"):
+            metadata[
+                "potential_evaporation_sum_ERA5_LAND"] = "Potential Evaporation [mm] (original potential_evaporation from ERA5-Land)"
+
+        elif feature.startswith("potential_evaporation_sum_FAO"):
+            metadata[
+                "potential_evaporation_sum_FAO_PENMAN_MONTEITH"] = "Potential Evaporation [mm] (FAO Penman-Monteith computed from ERA5-Land inputs)"
+
+        elif feature.startswith("u_component_of_wind_10m"):
+            metadata["u_component_of_wind_10m"] = "U-component of wind at 10m [m/s]"
+
+        elif feature.startswith("v_component_of_wind_10m"):
+            metadata["v_component_of_wind_10m"] = "V-component of wind at 10m [m/s]"
+
+        elif feature.startswith("volumetric_soil_water_layer_1"):
+            metadata["volumetric_soil_water_layer_1"] = "ERA5-Land volumetric soil water layer 1 (0-7cm) [m3/m3]"
+
+        elif feature.startswith("volumetric_soil_water_layer_2"):
+            metadata["volumetric_soil_water_layer_2"] = "ERA5-Land volumetric soil water layer 2 (7-28cm) [m3/m3]"
+
+        elif feature.startswith("volumetric_soil_water_layer_3"):
+            metadata["volumetric_soil_water_layer_3"] = "ERA5-Land volumetric soil water layer 3 (28-100cm) [m3/m3]"
+
+        elif feature.startswith("volumetric_soil_water_layer_4"):
+            metadata["volumetric_soil_water_layer_4"] = "ERA5-Land volumetric soil water layer 4 (100-289cm) [m3/m3]"
+
+        elif feature.startswith("streamflow"):
+            metadata["streamflow"] = "Observed streamflow [mm/d]"
+
+    return metadata
+
+
+def _get_offset(tz_name, lat):
+    """Convert a time zone to offset from UTC in hours. """
+    # Making sure it is always non-DST, depending on northern/southern hemisphere
+    if lat <= 0:
+        some_date = datetime.strptime("2020-01-01", "%Y-%m-%d")
+    else:
+        some_date = datetime.strptime("2020-08-01", "%Y-%m-%d")
+    tz_target = timezone(tz_name)
+    date_lst = tz_target.localize(some_date)
+    date_utc = utc.localize(some_date)
+    return (date_utc - date_lst).total_seconds() / (60 * 60)
+
+
+@njit
+def _split_list(a_list: List) -> List:
+    """Splits list into list of lists, where each list contains subsequent numbers."""
+    new_list = []
+    start = 0
+    for index, value in enumerate(a_list):
+        if index < len(a_list) - 1:
+            if a_list[index + 1] > value + 1:
+                end = index + 1
+                new_list.append(a_list[start:end])
+                start = end
+        else:
+            new_list.append(a_list[start:len(a_list)])
+    return new_list
+
+
+def _utc_to_local_standard_time(df: pd.DataFrame, lat, lon) -> pd.DataFrame:
+    """Convert a timezone from UTC to local time, given lat/lon."""
+    tf = TimezoneFinder()
+    tz_name = tf.timezone_at(lat=lat, lng=lon)
+    offset = _get_offset(tz_name, lat)
+
+    df.index = df.index + pd.to_timedelta(offset, unit='h')
+    return df
+
+
+
+================================================
+FILE: code/pet.py
+================================================
+"""Functions to calculate PET following FAO Penman-Monteith.
+
+The code from this module is largely copied from 
+https://github.com/Dagmawi-TA/hPET/blob/main/pet_calc_v3.3.py, which is the published code for 
+Singer et al. (2021), see https://www.nature.com/articles/s41597-021-01003-9. Only minor 
+modifications were made to make the functions fit into the Caravan code base.
+"""
+
+import numpy as np
+import pandas as pd
+
+
+def get_fao_pm_pet(
+    surface_pressure_mean: pd.Series,
+    temperature_2m_mean: pd.Series,
+    dewpoint_temperature_2m_mean: pd.Series,
+    u_component_of_wind_10m_mean: pd.Series,
+    v_component_of_wind_10m_mean: pd.Series,
+    surface_net_solar_radiation_mean: pd.Series,
+    surface_net_thermal_radiation_mean: pd.Series,
+) -> pd.Series:
+    """Returns Penman-Monteith PET as a pandas Series.
+
+    All inputs to these functions should be from the dataframe that is returned by 
+    caravan_utils.aggregate_df_to_daily() and hence after the Caravan specific unit conversion.
+    
+    Parameters
+    ----------
+    surface_pressure_mean : pd.Series
+        Daily mean surface pressure.
+    temperature_2m_mean: pd.Series
+        Daily mean temperature.
+    dewpoint_temperature_2m_mean: pd.Series
+        Daily mean dewpoint temperature.
+    u_component_of_wind_10m_mean: pd.Series
+        Daily mean u-component of wind.
+    v_component_of_wind_10m_mean: pd.Series
+        Daily mean v-component of wind.
+    surface_net_solar_radiation_mean: pd.Series
+        Mean net solar radiation.
+    surface_net_thermal_radiation_mean: pd.Series
+        Mean net thermal radiation.
+
+    Returns
+    -------
+    Pandas Series with Penman-Monteith PET following the FAO guidelines.
+    """
+    windspeed2m_m_s, net_radiation_MJ_m2 = _preprocess_inputs(
+        u_component_of_wind_10m_mean=u_component_of_wind_10m_mean,
+        v_component_of_wind_10m_mean=v_component_of_wind_10m_mean,
+        surface_net_solar_radiation_mean=surface_net_solar_radiation_mean,
+        surface_net_thermal_radiation_mean=surface_net_thermal_radiation_mean)
+
+    pm_pet = _calculate_pm_pet_daily(
+        surface_pressure_kpa=surface_pressure_mean,
+        temperature2m_c=temperature_2m_mean,
+        dewpoint2m_c=dewpoint_temperature_2m_mean,
+        windspeed2m_m_s=windspeed2m_m_s,
+        net_radiation_mj_m2=net_radiation_MJ_m2,
+    )
+
+    return pm_pet.clip(lower=0.0)  # Clip negative PET values to zero.
+
+
+def _preprocess_inputs(
+    u_component_of_wind_10m_mean: pd.Series,
+    v_component_of_wind_10m_mean: pd.Series,
+    surface_net_solar_radiation_mean: pd.Series,
+    surface_net_thermal_radiation_mean: pd.Series,
+) -> pd.Series:
+    temp_windspeed10m_m_s = np.sqrt(u_component_of_wind_10m_mean**2 + v_component_of_wind_10m_mean**2)
+    windspeed2m_m_s = temp_windspeed10m_m_s * 4.87 / (np.log(67.8 * 10 - 5.42))
+
+    net_radiation_MJ_m2 = ((surface_net_solar_radiation_mean + surface_net_thermal_radiation_mean) * 3600 * 24 / 1e6)
+    return windspeed2m_m_s, net_radiation_MJ_m2
+
+
+def _calculate_pm_pet_daily(
+        surface_pressure_kpa: pd.Series,  # surface pressure KPa
+        temperature2m_c: pd.Series,  # Daily mean temperature at 2 m
+        dewpoint2m_c: pd.Series,  # Daily mean dewpoint temperature at 2 m
+        windspeed2m_m_s: pd.Series,  # Windspeed at 2 m
+        net_radiation_mj_m2: pd.Series,  # Total daily net downward radiation MJ/m2/day
+) -> np.ndarray:
+    # Constants.
+    lmbda = 2.45  # Latent heat of vaporization [MJ kg -1] (simplification in the FAO PenMon (latent heat of about 20°C)
+    cp = 1.013e-3  # Specific heat at constant pressure [MJ kg-1 °C-1]
+    eps = 0.622  # Ratio molecular weight of water vapour/dry air
+
+    # Soil heat flux density [MJ m-2 day-1] - set to 0 following eq 42 in FAO
+    soil_heat_flux = np.zeros_like(surface_pressure_kpa)
+
+    # Atmospheric pressure [kPa] eq 7 in FAO.
+    P_kpa = surface_pressure_kpa
+
+    # Psychrometric constant (gamma symbol in FAO) eq 8 in FAO.
+    psychometric_kpa_c = cp * P_kpa / (eps * lmbda)
+
+    # Saturation vapour pressure, eq 11 in FAO.
+    svp_kpa = 0.6108 * np.exp((17.27 * temperature2m_c) / (temperature2m_c + 237.3))
+
+    # Delta (slope of saturation vapour pressure curve) eq 13 in FAO.
+    delta_kpa_c = 4098.0 * svp_kpa / (temperature2m_c + 237.3)**2
+
+    # Actual vapour pressure, eq 14 in FAO.
+    avp_kpa = 0.6108 * np.exp((17.27 * dewpoint2m_c) / (dewpoint2m_c + 237.3))
+
+    # Saturation vapour pressure deficit.
+    svpdeficit_kpa = svp_kpa - avp_kpa
+
+    # Calculate ET0, equation 6 in FAO
+    numerator = (0.408 * delta_kpa_c * (net_radiation_mj_m2 - soil_heat_flux) + psychometric_kpa_c *
+                 (900 / (temperature2m_c + 273)) * windspeed2m_m_s * svpdeficit_kpa)
+    denominator = delta_kpa_c + psychometric_kpa_c * (1 + 0.34 * windspeed2m_m_s)
+
+    ET0_mm_day = numerator / denominator
+    return ET0_mm_day
+
+
+
+================================================
+FILE: environments/environment.yml
+================================================
+name: caravan_3_11
+channels:
+  - defaults
+dependencies:
+  - jupyter
+  - netcdf4
+  - numba
+  - pandas
+  - pip
+  - python=3.11
+  - tqdm
+  - xarray
+  - pip:
+    - timezonefinder[numba]
+
+
+================================================
+FILE: environments/requirements.txt
+================================================
+jupyter
+netcdf4
+numba
+pandas
+tqdm
+xarray
+timezonefinder[numba]
+
+
+================================================
+FILE: references/references.bib
+================================================
+@Article{essd-15-5755-2023,
+AUTHOR = {H\"oge, M. and Kauzlaric, M. and Siber, R. and Sch\"onenberger, U. and Horton, P. and Schwanbeck, J. and Floriancic, M. G. and Viviroli, D. and Wilhelm, S. and Sikorska-Senoner, A. E. and Addor, N. and Brunner, M. and Pool, S. and Zappa, M. and Fenicia, F.},
+TITLE = {CAMELS-CH: hydro-meteorological time series and
+landscape attributes for 331 catchments in hydrologic Switzerland},
+JOURNAL = {Earth System Science Data},
+VOLUME = {15},
+YEAR = {2023},
+NUMBER = {12},
+PAGES = {5755--5784},
+URL = {https://essd.copernicus.org/articles/15/5755/2023/},
+DOI = {10.5194/essd-15-5755-2023}
+}
+
+@Article{essd-2024-427,
+AUTHOR = {F\"arber, C. and Plessow, H. and Mischel, S. and Kratzert, F. and Addor, N. and Shalev, G. and Looser, U.},
+TITLE = {GRDC-Caravan: extending Caravan with data from the Global Runoff Data Centre},
+JOURNAL = {Earth System Science Data Discussions},
+VOLUME = {2024},
+YEAR = {2024},
+PAGES = {1--17},
+URL = {https://essd.copernicus.org/preprints/essd-2024-427/},
+DOI = {10.5194/essd-2024-427}
+}
+
+@Article{essd-16-5625-2024,
+AUTHOR = {Loritz, R. and Dolich, A. and Acu\~na Espinoza, E. and Ebeling, P. and Guse, B. and G\"otte, J. and Hassler, S. K. and Hauffe, C. and Heidb\"uchel, I. and Kiesel, J. and M\"alicke, M. and M\"uller-Thomy, H. and St\"olzle, M. and Tarasova, L.},
+TITLE = {CAMELS-DE: hydro-meteorological time series and attributes for 1582
+catchments in Germany},
+JOURNAL = {Earth System Science Data},
+VOLUME = {16},
+YEAR = {2024},
+NUMBER = {12},
+PAGES = {5625--5642},
+URL = {https://essd.copernicus.org/articles/16/5625/2024/},
+DOI = {10.5194/essd-16-5625-2024}
+}
+
+@article{koch2022lstm,
+  author = {Koch, J. and Schneider, R.},
+  title = {Long short-term memory networks enhance rainfall-runoff modelling at the national scale of Denmark},
+  journal = {GEUS Bulletin},
+  volume = {49},
+  year = {2022},
+  doi = {10.34194/geusb.v49.8292}
+}
+
+@misc{casado2023camelses,
+  author = {Casado Rodríguez, J.},
+  title = {CAMELS-ES: Catchment Attributes and Meteorology for Large-Sample Studies – Spain (1.0.2)},
+  year = {2023},
+  publisher = {Zenodo},
+  doi = {10.5281/zenodo.8428374},
+  url = {https://doi.org/10.5281/zenodo.8428374},
+  version = {1.0.2}
+}
+
+@article{helgason2024lamahice,
+  author = {Helgason, H. B. and Nijssen, B.},
+  title = {LamaH-Ice: LArge-SaMple DAta for Hydrology and Environmental Sciences for Iceland},
+  journal = {Earth System Science Data},
+  volume = {16},
+  pages = {2741--2771},
+  year = {2024},
+  doi = {10.5194/ESSD-16-2741-2024}
+}
+
+@article{shalev2024caravanmultimet,
+  title = {Caravan MultiMet: Extending Caravan with Multiple Weather Nowcasts and Forecasts},
+  author = {Shalev, Guy and Kratzert, Frederik},
+  year = {2024},
+  journal = {arXiv preprint},
+  eprint = {2411.09459},
+  archivePrefix = {arXiv},
+  primaryClass = {cs.LG},
+  url = {https://arxiv.org/abs/2411.09459}
+}
+
+@article{kratzert2023caravan,
+  author = {Kratzert, Frederik and Nearing, Grey and Addor, Nans and Erickson, Tyler and Gauch, Martin and Gilon, Oren and Gudmundsson, Lukas and Hassidim, Avinatan and Klotz, Daniel and Nevo, Sella and Shalev, Guy and Matias, Yossi},
+  title = {Caravan: A global community dataset for large-sample hydrology},
+  journal = {Scientific Data},
+  volume = {10},
+  pages = {61},
+  year = {2023},
+  doi = {10.1038/s41597-023-01975-w},
+  url = {https://www.nature.com/articles/s41597-023-01975-w}
+}
+
+@misc{morin_efrat_2024_12760798,
+  author       = {Morin Efrat},
+  title        = {Caravan extension Israel - Israel dataset for
+                   large-sample hydrology
+                  },
+  publisher    = {Zenodo},
+  doi          = {10.5281/zenodo.12760798},
+  url          = {https://doi.org/10.5281/zenodo.12760798},
+}
+
+
+
+================================================
+FILE: .github/ISSUE_TEMPLATE/data-contribution.yml
+================================================
+name: Data contribution
+description: Contribute data to Caravan
+title: '[DATA CONTRIBUTION] Title describing the contributed data'
+labels: ['data-contribution']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for contributing data to Caravan! Please fill out the following information so we can be sure your contribution is ready to be featured in the [list of community-contributed data](https://github.com/kratzert/Caravan/discussions/10). Once your dataset is accepted, a Caravan maintainer will add it to the list of datasets and close this issue.
+  - type: input
+    id: prefix
+    attributes:
+      label: Basin prefix
+      description: Which basin prefix did you choose for your dataset?
+      placeholder: ex. camelsgb
+    validations:
+      required: true
+  - type: input
+    id: doi
+    attributes:
+      label: Zenodo DOI
+      description: Please provide the Zenodo DOI link to your data.
+      placeholder: ex. https://zenodo.org/records/12345
+    validations:
+      required: true
+  - type: input
+    id: num_basins
+    attributes:
+      label: Number of catchments
+      description: How many catchments are you contributing?
+    validations:
+      required: true
+  - type: input
+    id: location
+    attributes:
+      label: Location of catchments
+      description: Where in the world are your catchments located?
+    validations:
+      required: true
+  - type: textarea
+    id: periods
+    attributes:
+      label: For which periods are streamflow records available in your dataset?
+    validations:
+      required: true
+  - type: textarea
+    id: sources
+    attributes:
+      label: Please list any sources of the data you contributed.
+    validations:
+      required: true
+  - type: input
+    id: license
+    attributes:
+      label: License
+      description: Under what license is your data available?
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Add any other context, figures, links, or statistics about your contributed data here. 
+  - type: checkboxes
+    id: checklist
+    # not making these required on purpose, so people can submit the issue even when one or two boxes are not yet ticked.
+    attributes:
+      label: Checklist
+      description: Please make sure you can check all items on this checklist
+      options:
+        - label: I have uploaded my dataset on Zenodo, where it is accessible under the DOI provided above.
+          required: false
+        - label: I used a basin prefix that is not yet used by any other Caravan sub-dataset (you can check this via the [Data Contributions discussion thread](https://github.com/kratzert/Caravan/discussions/10), where all accepted Caravan contributions are listed).
+          required: false
+        - label: 'Permissive License: My data is available under a license that is compatible with the Caravan CC-BY-4.0 license (the easiest way to be sure about this is if your data uses CC-BY-4.0, too).'
+          required: false
+
+
